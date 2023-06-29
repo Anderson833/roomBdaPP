@@ -1,8 +1,8 @@
 package com.operacao.bdandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
         EDITAR = findViewById(R.id.texto);
         botao = findViewById(R.id.button);
 
-        MYbD = Room.databaseBuilder(getApplicationContext(),MyDatabase.class,"MeuBanco").build();
+        MYbD = Room.databaseBuilder(getApplicationContext(),MyDatabase.class,"MeuBanco").allowMainThreadQueries().build();
     }
 
     public void insertDados(View view){
         String nome=EDITAR.getText().toString();
-        Usuario user = new Usuario(0,nome,29,"84991958497");
-        MYbD.usuarioDao().inserir(user);
-        MYbD.close();
+      //  Usuario user = new Usuario(0,"Anderson",29,"84991958497");
+        MYbD.usuarioDao().inserir(new Usuario(0,"Andinho",29,"84"));
         Toast.makeText(this, "Dados salvos com sucesso ", Toast.LENGTH_SHORT).show();
+        MYbD.close();
     }
 
 }
